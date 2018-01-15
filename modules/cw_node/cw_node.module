@@ -1,0 +1,48 @@
+<?php
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Form\FormStateInterface;
+
+
+/**
+ * Implements hook_entity_base_field_info().
+ *
+ * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+ *
+ * @return array
+ */
+function cw_node_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'node') {
+    $fields['edited'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Recycle status'))
+      ->setDescription(t(''))
+      ->setTranslatable(TRUE)     
+      ->setDisplayOptions('form', array(
+        'type' => 'textfield',
+        'weight' => 10,
+      ))
+      ->setDisplayConfigurable('form', TRUE)       
+      ->setSettings(array(
+        'default_value' => '0',
+        'max_length' => 55,
+      )); 
+    
+    return $fields;
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function cw_node_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['edited_settings'] = [
+    '#type' => 'hidden',
+    '#title' => t('Recycle options'),
+    '#weight' => 1,
+  ];
+  $form['edited']['#group'] = 'edited_settings';
+
+  $form['edited_settings']['#group'] = 'advanced';
+}
+

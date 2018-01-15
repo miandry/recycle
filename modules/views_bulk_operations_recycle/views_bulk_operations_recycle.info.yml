@@ -1,0 +1,13 @@
+type: module
+name: 'Views Bulk Operations Recyle'
+description: 'Defines an Recyle action '
+package: 'Custom'
+# core: 8.x
+dependencies:
+  - drupal:views_bulk_operations
+
+# Information added by Drupal.org packaging script on 2017-08-08
+version: '8.x-1.0-alpha1'
+core: '8.x'
+project: 'views_bulk_operations'
+datestamp: 1502214250

@@ -1,0 +1,43 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_install().
+ */
+function cw_node_install() {
+  // Add our base fields to the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function cw_node_uninstall() {
+  // Remove our base fields from the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Add index for edited column in node_field_data table
+ */
+function cw_node_update_8204() {
+  /** @var \Drupal\Core\Database\Schema $schema */
+  $schema = Database::getConnection()->schema();
+  $spec = [
+    'fields' => [
+      'edited' => [
+        'type' => 'int',
+        'length' => 11,
+        'default' => NULL,
+      ],
+    ],
+    'indexes' => [
+      'edited' => ['edited'],
+    ],
+  ];
+
+  $schema->addIndex('node_field_data', 'node_field__edited', ['edited'], $spec);
+}

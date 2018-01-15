@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains miandry_recycle_bin.module.
+ */
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_node_insert().
+ *
+ */
+function miandry_recycle_bin_node_delete(NodeInterface $node) {
+    unset($node->nid);
+    $node->edited=1;
+    $node->status=0;
+    $node->save();
+}

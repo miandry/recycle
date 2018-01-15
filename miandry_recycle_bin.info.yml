@@ -1,0 +1,8 @@
+name: miandry_recycle_bin
+type: module
+description: Demo Recycle Bin
+core: 8.x
+package: Custom
+dependencies:
+  - drupal:views_bulk_operations_recyle
+  - cw_node
